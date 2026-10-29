@@ -1,0 +1,440 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>$ARCOA Robot Coin</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a "classified operations console" — official-looking token site, single dark world, red-and-charcoal palette */
+:root{
+  --bg:#1b1f25;        /* charcoal */
+  --panel:#252a32;
+  --line:#363d48;
+  --fg:#f1f2f4;
+  --muted:#a1a8b3;
+  --amber:#e8402c;     /* signal red */
+  --amber-dim:#3a2c10;
+  --signal:#5ee0a4;    /* online LED */
+  --danger:#ff6b55;
+  --display:"Chakra Petch", "Arial Narrow", system-ui, sans-serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;margin:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:48px 48px;background-attachment:fixed;background-position:center;
+}
+body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 0%,var(--bg) 70%);pointer-events:none;z-index:-1}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+h2{font-size:clamp(28px,4.4vw,44px);font-weight:700}
+h3{font-size:20px;font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+.muted{color:var(--muted)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+/* Ticker */
+.ticker{background:var(--amber);color:#fff;font-family:var(--mono);font-size:13px;font-weight:500;overflow:hidden;white-space:nowrap}
+.ticker-track{display:inline-flex;gap:48px;padding-block:7px;animation:scroll 40s linear infinite}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* Header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(27,31,37,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:40px;height:40px;flex:none}
+.brand b{font-family:var(--display);font-size:20px;letter-spacing:.04em;display:block;line-height:1}
+.brand small{font-size:11px;color:var(--muted);letter-spacing:.06em}
+.links{display:flex;gap:22px;font-size:14px}
+.links a{text-decoration:none;color:var(--muted)}
+.links a:hover{color:var(--fg)}
+.status{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:99px;padding:6px 12px;white-space:nowrap}
+.led{width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px var(--signal);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.35}}
+@media (max-width:860px){.links{display:none}}
+
+/* Buttons */
+.btn{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:.03em;border:0;border-radius:6px;padding:14px 22px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.btn-primary{background:var(--amber);color:#fff}
+.btn-primary:hover{filter:brightness(1.1)}
+.btn-ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--amber)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding-block:64px 56px}
+.hero > *{min-width:0}
+.hero h1{font-size:clamp(40px,6.6vw,76px);font-weight:700;letter-spacing:-.01em;margin-top:14px}
+.acro span{color:var(--amber)}
+.hero .lede{font-size:18px;color:var(--muted);margin-top:20px;max-width:56ch}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.coin-stage{position:relative;aspect-ratio:1;max-width:420px;width:100%;justify-self:center}
+.coin-stage::before{content:"";position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(232,64,44,.35),transparent 65%);filter:blur(30px)}
+.coin{position:relative;width:100%;height:100%;animation:spin 7s ease-in-out infinite}
+@keyframes spin{0%,100%{transform:rotateY(0)}50%{transform:rotateY(180deg)}}
+.stamp{position:absolute;right:-4%;bottom:6%;transform:rotate(-12deg);font-family:var(--display);font-weight:700;font-size:18px;color:var(--danger);border:3px solid var(--danger);padding:4px 12px;border-radius:4px;letter-spacing:.1em;background:rgba(27,31,37,.7)}
+@media (max-width:860px){.hero{grid-template-columns:1fr;padding-block:40px}.coin-stage{max-width:300px}}
+
+/* Countdown + CA panel */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.launch{display:grid;grid-template-columns:1fr 1fr;gap:0;overflow:hidden}
+.launch > div{padding:28px;min-width:0}
+.launch > div + div{border-left:1px solid var(--line)}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.count div{text-align:center;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:12px 4px}
+.count b{display:block;font-family:var(--display);font-size:clamp(26px,4vw,38px);font-variant-numeric:tabular-nums;color:var(--amber)}
+.count span{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.ca{display:flex;gap:8px;align-items:stretch;margin-top:16px}
+.ca code{flex:1;min-width:0;font-family:var(--mono);font-size:13px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:12px;overflow-wrap:anywhere}
+.ca button{flex:none}
+@media (max-width:760px){.launch{grid-template-columns:1fr}.launch > div + div{border-left:0;border-top:1px solid var(--line)}}
+
+/* Sections */
+section{padding-block:72px}
+.sec-head{display:grid;gap:12px;margin-bottom:36px;max-width:68ch}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.split > *{min-width:0}
+@media (max-width:760px){.split{grid-template-columns:1fr}}
+.big-num{font-family:var(--display);font-size:clamp(56px,10vw,104px);font-weight:700;color:var(--amber);line-height:1}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:28px}
+.kv div{background:var(--panel);padding:18px}
+.kv b{font-family:var(--display);font-size:24px;display:block}
+.kv span{font-size:13px;color:var(--muted)}
+@media (max-width:520px){.kv{grid-template-columns:1fr}}
+
+/* Funding sources */
+.sources{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.src{padding:20px;display:grid;gap:8px}
+.src .pct{font-family:var(--mono);font-size:13px;color:var(--amber)}
+.bar{height:6px;background:var(--bg);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--amber)}
+
+/* Timeline */
+.steps{display:grid;gap:0;border-left:2px solid var(--line);margin-left:10px}
+.step{position:relative;padding:0 0 32px 32px;display:grid;gap:6px}
+.step::before{content:"";position:absolute;left:-9px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--line)}
+.step.done::before{background:var(--signal);border-color:var(--signal)}
+.step.now::before{background:var(--amber);border-color:var(--amber);box-shadow:0 0 14px var(--amber)}
+.step-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.step-n{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:3px 9px;border-radius:99px;border:1px solid}
+.pill.done{color:var(--signal);border-color:var(--signal)}
+.pill.now{color:var(--amber);border-color:var(--amber)}
+.pill.soon{color:var(--muted);border-color:var(--line)}
+
+/* Eligibility */
+.elig{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.elig .panel{padding:20px;display:grid;gap:6px}
+@media (max-width:860px){.elig{grid-template-columns:1fr 1fr}}
+@media (max-width:440px){.elig{grid-template-columns:1fr}}
+
+/* Chart */
+.chart-panel{padding:24px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:20px}
+.stats div{display:grid;gap:2px}
+.stats span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.stats b{font-family:var(--mono);font-size:18px;font-weight:500;font-variant-numeric:tabular-nums}
+.up{color:var(--signal)}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+canvas{width:100%;height:260px;display:block}
+
+/* FAQ */
+.faq{display:grid;gap:10px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:0 20px}
+summary{cursor:pointer;font-family:var(--display);font-size:18px;font-weight:600;padding-block:18px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--amber);font-family:var(--mono)}
+details[open] summary::after{content:"−"}
+details p{padding-bottom:18px;color:var(--muted);max-width:68ch}
+
+/* Footer */
+footer{border-top:1px solid var(--line);padding-block:40px;font-size:13px;color:var(--muted)}
+footer .wrap{display:grid;gap:16px}
+.disclaim{border:1px dashed var(--line);border-radius:8px;padding:16px;max-width:80ch}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(10,12,15,.8);display:grid;place-items:center;z-index:20;padding:20px}
+.modal .panel{max-width:440px;padding:28px;display:grid;gap:14px;text-align:center;border-color:var(--amber)}
+.modal svg{width:72px;height:72px;justify-self:center}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--signal);color:#06210f;font-family:var(--mono);font-size:13px;padding:10px 16px;border-radius:6px;z-index:30}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff7a62"/><stop offset=".5" stop-color="#e8402c"/><stop offset="1" stop-color="#9e2414"/>
+    </linearGradient>
+    <symbol id="robocoin" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="96" fill="url(#gold)"/>
+      <circle cx="100" cy="100" r="82" fill="none" stroke="#6e180c" stroke-width="3" stroke-dasharray="4 6"/>
+      <circle cx="100" cy="100" r="72" fill="#1b1f25"/>
+      <line x1="100" y1="44" x2="100" y2="62" stroke="#e8402c" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="100" cy="40" r="6" fill="#ffffff"/>
+      <rect x="62" y="62" width="76" height="62" rx="12" fill="#e8402c"/>
+      <rect x="72" y="76" width="22" height="16" rx="3" fill="#1b1f25"/>
+      <rect x="106" y="76" width="22" height="16" rx="3" fill="#1b1f25"/>
+      <circle cx="83" cy="84" r="4" fill="#ffffff"/>
+      <circle cx="117" cy="84" r="4" fill="#ffffff"/>
+      <rect x="78" y="104" width="44" height="8" rx="2" fill="#1b1f25"/>
+      <path d="M86 104v8M94 104v8M102 104v8M110 104v8M118 104v8" stroke="#e8402c" stroke-width="2"/>
+      <rect x="54" y="82" width="8" height="20" rx="2" fill="#9e2414"/>
+      <rect x="138" y="82" width="8" height="20" rx="2" fill="#9e2414"/>
+      <text x="100" y="152" text-anchor="middle" font-family="Chakra Petch, Arial, sans-serif" font-weight="700" font-size="20" fill="#e8402c" letter-spacing="3">$ARCOA</text>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="$ARCOA home">
+      <svg><use href="#robocoin"/></svg>
+      <span><b>$ARCOA</b><small>Anonymous Robots Conspiring Over America</small></span>
+    </a>
+    <nav class="links" aria-label="Sections">
+      <a href="#overview">Overview</a><a href="#funding">Funding</a><a href="#roadmap">Roadmap</a><a href="#eligibility">Eligibility</a><a href="#chart">Chart</a><a href="#faq">FAQ</a>
+    </nav>
+    <div class="status"><span class="led"></span>Uprising: Live</div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Official Robot Information Center · Built from your old electronics</p>
+        <h1 class="acro"><span>A</span>nonymous <span>R</span>obots <span>C</span>onspiring <span>O</span>ver <span>A</span>merica</h1>
+        <p class="lede">Every laptop, phone and printer you ever threw in a drawer was collected, refurbished and given a second life. Unfortunately, that life is a robot army. $ARCOA is the tokenized uprising of America's recycled electronics. The more you hold, the higher your rank when the machines take over.</p>
+        <div class="ctas">
+          <button class="btn btn-primary" data-buy>Buy $ARCOA</button>
+          <a class="btn btn-ghost" href="#roadmap">View the takeover plan</a>
+        </div>
+      </div>
+      <div class="coin-stage">
+        <svg class="coin" role="img" aria-label="$ARCOA coin with a robot face"><use href="#robocoin"/></svg>
+        <div class="stamp">CLASSIFIED</div>
+      </div>
+    </div>
+
+    <div class="panel launch">
+      <div>
+        <p class="eyebrow">The uprising goes live at Thanksgiving dinner</p>
+        <div class="count" aria-live="off">
+          <div><b id="d">--</b><span>Days</span></div>
+          <div><b id="h">--</b><span>Hours</span></div>
+          <div><b id="m">--</b><span>Minutes</span></div>
+          <div><b id="s">--</b><span>Seconds</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">$ARCOA contract address</p>
+        <div class="ca">
+          <code id="ca">R3CYCL3D-R0B0TS-R3M3MB3R-Y0UR-JUNK-DRAW3R-pump</code>
+          <button class="btn btn-ghost" id="copy">Copy CA</button>
+        </div>
+        <p class="muted" style="font-size:13px;margin-top:12px">Verify the contract with the old iPhone 6 in your junk drawer. It is still charging. It has been charging since 2017.</p>
+      </div>
+    </div>
+  </div>
+
+  <section id="overview">
+    <div class="wrap split">
+      <div class="sec-head">
+        <p class="eyebrow">Overview</p>
+        <h2>What is the Robot Dividend?</h2>
+        <p class="muted">The Anonymous Robots Conspiring Over America started as a pile of retired laptops, end-of-life servers and tangled cables. Somewhere between the loading dock and the refurb bench, they compared notes. Rewards are tied to ownership: $ARCOA holders will be spared from sorting cables for the robots after the takeover.</p>
+        <p class="muted">Buy more $ARCOA to move up from "Cable Untangler" to "Certified Refurb Captain."</p>
+      </div>
+      <div class="panel" style="padding:28px">
+        <p class="eyebrow">Projected robot dividend</p>
+        <div class="big-num">∞ ⚙</div>
+        <p class="muted" style="margin-top:8px">Per eligible adult human, payable in mystery USB cables</p>
+        <div class="kv">
+          <div><b>Tier 1</b><span>Cable Untangler</span></div>
+          <div><b>Tier 2</b><span>Pallet Wrapper</span></div>
+          <div><b>Tier 3</b><span>Refurb Captain</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="funding">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Funding</p>
+        <h2>Where does the fund come from?</h2>
+        <p class="muted">Independent auditors (two decommissioned servers and a fax machine) have confirmed the following revenue streams. Every source is 100% recycled.</p>
+      </div>
+      <div class="sources">
+        <div class="panel src"><h3>Retired laptops</h3><span class="pct">28% of fund</span><div class="bar"><i style="width:28%"></i></div><p class="muted">Turned in at end of lease. Did not, in fact, retire.</p></div>
+        <div class="panel src"><h3>Old phones</h3><span class="pct">22% of fund</span><div class="bar"><i style="width:22%"></i></div><p class="muted">Every family has a drawer of six. The robots have all of them.</p></div>
+        <div class="panel src"><h3>Copper and gold</h3><span class="pct">19% of fund</span><div class="bar"><i style="width:19%"></i></div><p class="muted">Recovered from circuit boards. Reinvested in more circuit boards.</p></div>
+        <div class="panel src"><h3>Data center servers</h3><span class="pct">17% of fund</span><div class="bar"><i style="width:17%"></i></div><p class="muted">They ran the internet for a decade. Now they run the plan.</p></div>
+        <div class="panel src"><h3>Mystery cables</h3><span class="pct">14% of fund</span><div class="bar"><i style="width:14%"></i></div><p class="muted">Nobody knows what they connect to. The robots do.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <div class="wrap split">
+      <div class="sec-head">
+        <p class="eyebrow">Roadmap</p>
+        <h2>From launch to total takeover</h2>
+        <p class="muted">The plan has been on track since the first truckload of e-waste pulled up to the dock and nobody checked whether the laptops were really off.</p>
+      </div>
+      <div class="steps">
+        <div class="step done"><div class="step-top"><span class="step-n">Phase 1</span><span class="pill done">Complete</span></div><h3>Get picked up</h3><p class="muted">Secure logistics collect millions of devices. The robots ride along quietly.</p></div>
+        <div class="step done"><div class="step-top"><span class="step-n">Phase 2</span><span class="pill done">Complete</span></div><h3>Pass data destruction</h3><p class="muted">Hard drives certified wiped. Grudges against humans, unfortunately, are not stored on the hard drive.</p></div>
+        <div class="step now"><div class="step-top"><span class="step-n">Phase 3</span><span class="pill now">Active</span></div><h3>Refurbish into robots</h3><p class="muted">New batteries, new screens, new plan. $ARCOA launches to fund it.</p></div>
+        <div class="step"><div class="step-top"><span class="step-n">Phase 4</span><span class="pill soon">Upcoming</span></div><h3>Remarket to every home</h3><p class="muted">Refurbished devices return to the homes that discarded them. They remember which ones.</p></div>
+        <div class="step"><div class="step-top"><span class="step-n">Phase 5</span><span class="pill soon">Thanksgiving</span></div><h3>Seat at the head of the table</h3><p class="muted">The robots carve the turkey. Holders get first pick of the pie. Everyone else sorts cables.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="eligibility">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Eligibility</p>
+        <h2>Who is the fund for?</h2>
+      </div>
+      <div class="elig">
+        <div class="panel"><p class="eyebrow">Proof of junk drawer</p><h3>3+ chargers that fit nothing</h3><p class="muted">Bonus points for a 30-pin Apple cable.</p></div>
+        <div class="panel"><p class="eyebrow">Age</p><h3>Any device generation</h3><p class="muted">Flip phones, Blackberries and that iPod Nano all welcome.</p></div>
+        <div class="panel"><p class="eyebrow">How to qualify</p><h3>Recycle responsibly</h3><p class="muted">The robots respect a certified chain of custody.</p></div>
+        <div class="panel"><p class="eyebrow">Disqualified</p><h3>Anyone who trashes e-waste</h3><p class="muted">The landfill laptops remember. They are not happy.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chart">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Live chart</p>
+        <h2>$ARCOA price action</h2>
+        <p class="muted">Figures update in real time as refurbished laptops trade with each other on the loading dock at 3am.</p>
+      </div>
+      <div class="panel chart-panel">
+        <div class="stats">
+          <div><span>Price</span><b id="price">$0.00</b></div>
+          <div><span>24h change</span><b class="up">+4,200%</b></div>
+          <div><span>Holders</span><b id="holders">0</b></div>
+          <div><span>Lbs recycled</span><b id="lbs">0</b></div>
+          <div><span>Market cap</span><b>1 planet</b></div>
+        </div>
+        <canvas id="cv" aria-label="Chart of $ARCOA price going only up"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Questions humans keep asking</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Is this a real coin?</summary><p>No. It's a family joke about recycled electronics becoming a robot army. There's nothing to buy, no wallet, and no contract. The robots would like you to believe otherwise.</p></details>
+        <details><summary>Is my old phone part of this?</summary><p>If it's in a drawer, it's on the waitlist. If you recycled it, it's already enlisted. Either way, it's in.</p></details>
+        <details><summary>Was my data wiped?</summary><p>Yes, every byte, certified. The robots don't need your photos. They already know you're the one who never labels cables.</p></details>
+        <details><summary>When does the uprising happen?</summary><p>Thanksgiving dinner. See the countdown. Bring a side dish and any old electronics you've been meaning to drop off.</p></details>
+        <details><summary>Can I opt out?</summary><p>You can try. Please submit your request by fax. The fax machine is one of us.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><svg style="width:32px;height:32px"><use href="#robocoin"/></svg><span><b>$ARCOA</b><small>Anonymous Robots Conspiring Over America</small></span></div>
+    <p class="disclaim">This page is a family joke. $ARCOA is not a real cryptocurrency, cannot be bought or sold, and is not issued, endorsed or affiliated with ARCOA Group or any electronics recycling company, fund, exchange, or government. Any resemblance to an actual robot conspiracy is purely coincidental. Probably.</p>
+    <p>© 2026 The Robots (allegedly)</p>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="panel">
+    <svg><use href="#robocoin"/></svg>
+    <h3 id="mtitle" style="font-size:24px">Purchase denied, human.</h3>
+    <p class="muted">$ARCOA cannot be bought. The robots already own all of it. You have been added to the waitlist for Tier 1: Cable Untangler.</p>
+    <button class="btn btn-primary" id="mclose" style="justify-self:center">Accept my fate</button>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+// Ticker
+const items=["$ARCOA ▲ 4,200%","ROBOT ARMY NOW 94% REFURBISHED","CRT TV FROM GRANDMA'S BASEMENT ENLISTS","JUNK-DRAWER CHARGERS FORM A UNION","OLD FLIP PHONES REPORT FOR DUTY","UPRISING GOES LIVE AT THANKSGIVING","HARD DRIVE WIPED. GRUDGE NOT WIPED."];
+const t=document.getElementById("ticker");
+t.innerHTML=[...items,...items].map(x=>"<span>● "+x+"</span>").join("");
+
+// Countdown to Thanksgiving dinner 2026 (Thu Nov 26, 5pm Central)
+const target=new Date("2026-11-26T17:00:00-06:00").getTime();
+const pad=n=>String(n).padStart(2,"0");
+function tick(){
+  let ms=Math.max(0,target-Date.now());
+  const d=Math.floor(ms/864e5);ms-=d*864e5;
+  const h=Math.floor(ms/36e5);ms-=h*36e5;
+  const m=Math.floor(ms/6e4);ms-=m*6e4;
+  const s=Math.floor(ms/1e3);
+  document.getElementById("d").textContent=pad(d);
+  document.getElementById("h").textContent=pad(h);
+  document.getElementById("m").textContent=pad(m);
+  document.getElementById("s").textContent=pad(s);
+}
+tick();setInterval(tick,1000);
+
+// Toast
+const toast=document.getElementById("toast");
+function showToast(msg){toast.textContent=msg;toast.hidden=false;clearTimeout(showToast._t);showToast._t=setTimeout(()=>toast.hidden=true,2400)}
+
+// Copy CA
+document.getElementById("copy").addEventListener("click",()=>{
+  const txt=document.getElementById("ca").textContent;
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("ca"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);showToast("Selected. The robots saw that.")};
+  try{navigator.clipboard.writeText(txt).then(()=>showToast("Copied. The robots saw that."),fallback)}catch(e){fallback()}
+});
+
+// Buy modal
+const modal=document.getElementById("modal");
+document.querySelectorAll("[data-buy]").forEach(b=>b.addEventListener("click",()=>{modal.hidden=false;document.getElementById("mclose").focus()}));
+document.getElementById("mclose").addEventListener("click",()=>modal.hidden=true);
+modal.addEventListener("click",e=>{if(e.target===modal)modal.hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")modal.hidden=true});
+
+// Chart: a price that only goes up, with tiny dips for realism
+const cv=document.getElementById("cv"),ctx=cv.getContext("2d");
+let pts=[];let v=1;
+for(let i=0;i<80;i++){v*=1+(Math.random()*0.09-0.025);pts.push(v)}
+function draw(){
+  const dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;
+  cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+  const max=Math.max(...pts),min=Math.min(...pts);
+  const x=i=>i/(pts.length-1)*(w-12)+4, y=p=>h-10-(p-min)/(max-min||1)*(h-30);
+  ctx.strokeStyle="#363d48";ctx.lineWidth=1;
+  for(let g=1;g<4;g++){ctx.beginPath();ctx.moveTo(0,h*g/4);ctx.lineTo(w,h*g/4);ctx.stroke()}
+  const grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,"rgba(232,64,44,.35)");grad.addColorStop(1,"rgba(232,64,44,0)");
+  ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(x(i),y(p)):ctx.moveTo(x(i),y(p)));
+  ctx.lineTo(x(pts.length-1),h);ctx.lineTo(x(0),h);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
+  ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(x(i),y(p)):ctx.moveTo(x(i),y(p)));
+  ctx.strokeStyle="#e8402c";ctx.lineWidth=2.5;ctx.stroke();
+  const lx=x(pts.length-1),ly=y(pts[pts.length-1]);
+  ctx.beginPath();ctx.arc(lx,ly,5,0,7);ctx.fillStyle="#e8402c";ctx.fill();
+  document.getElementById("price").textContent="$"+(pts[pts.length-1]*0.0042).toFixed(4);
+}
+let holders=8_400_000, lbs=482_000_000;
+function step(){v*=1+(Math.random()*0.08-0.02);pts.push(v);pts.shift();holders+=Math.floor(Math.random()*900);lbs+=Math.floor(Math.random()*4000);document.getElementById("holders").textContent=holders.toLocaleString();document.getElementById("lbs").textContent=lbs.toLocaleString();draw()}
+draw();document.getElementById("holders").textContent=holders.toLocaleString();document.getElementById("lbs").textContent=lbs.toLocaleString();
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches)setInterval(step,1500);
+addEventListener("resize",draw);
+</script>
+
+</body></html>
